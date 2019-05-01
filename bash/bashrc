@@ -39,6 +39,6 @@ export HOMEBREW_NO_ANALYTICS=1
 # Set default language
 #
 
-export LC_ALL=en_US.UTF-8
+export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 export LANGUAGE="en_US:en"

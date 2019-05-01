@@ -4,6 +4,14 @@
 
 
 #
+# Include .bashrc
+#
+
+source ~/.bashrc
+
+
+
+#
 # Aliases
 #
 
