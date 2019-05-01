@@ -1,0 +1,44 @@
+#
+# .bashrc
+#
+
+
+#
+# Set path
+#
+
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+export PATH="/Library/PostgreSQL/10/bin:$PATH"
+
+
+
+#
+# Ruby compiler config
+#
+
+export LDFLAGS="-L/usr/local/opt/ruby/lib"
+export CPPFLAGS="-I/usr/local/opt/ruby/include"
+export PKG_CONFIG_PATH="/usr/local/opt/readline/lib/pkgconfig"
+
+
+
+#
+# Disable homebrew analytics (Ugh, yuck!)
+#
+
+export HOMEBREW_NO_ANALYTICS=1
+
+
+
+#
+# Set default language
+#
+
+export LC_ALL=en_US.UTF-8
+export LANG="en_US"
+export LANGUAGE="en_US:en"

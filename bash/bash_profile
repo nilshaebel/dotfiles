@@ -1,0 +1,39 @@
+#
+# .bash_profile
+#
+
+
+#
+# Aliases
+#
+
+alias dev='~/Development'
+alias reload='source ~/Development/dotfiles/bash/bash_profile'
+
+alias ga='git add -A'
+alias gp='git push origin master'
+alias gs='git status'
+alias gpl='git pull'
+alias gc='git commit -m'
+
+alias emacs-debug='/Applications/Emacs.app/Contents/MacOS/Emacs --debug-init'
+
+alias puma-restart='pkill -USR1 puma-dev'
+alias puma-stop-alt='launchctl unload /Users/nilshaebel/Library/LaunchAgents/io.puma.dev.plist'
+alias puma-start-alt='launchctl load /Users/nilshaebel/Library/LaunchAgents/io.puma.dev.plist'
+
+
+
+#
+# set default directory
+#
+
+cd ~/Development
+
+
+
+#
+# load private configuration
+#
+
+source ~/Development/dotfiles-private/bash_profile_private

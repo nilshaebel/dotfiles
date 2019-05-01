@@ -1,0 +1,5 @@
+[user]
+	name = nilshaebel
+	email = nils.haebel@bitsandmachines.com
+[core]
+	excludesfile = ~/.gitignore_global
