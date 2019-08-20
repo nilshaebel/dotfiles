@@ -967,8 +967,8 @@ Increase to full width and height on startup; NH 2018-05-30
 see https://www.emacswiki.org/emacs/FullScreen#toc26
 
 #+BEGIN_SRC emacs-lisp
-  ;;(toggle-frame-maximized)
-  (toggle-frame-fullscreen)
+  (toggle-frame-maximized)
+  ;;(toggle-frame-fullscreen)
 #+END_SRC
 
 
