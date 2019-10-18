@@ -42,3 +42,11 @@ export HOMEBREW_NO_ANALYTICS=1
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 export LANGUAGE="en_US:en"
+
+
+
+#
+# Use TextMate as editor
+#
+
+export EDITOR="/usr/local/bin/mate -w"
