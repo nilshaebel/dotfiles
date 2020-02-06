@@ -27,6 +27,7 @@ alias gplh='git pull origin head'
 alias gc='git commit -m'
 
 # Puma
+alias puma-log='nano ~/Library/Logs/puma-dev.log'
 alias puma-restart='pkill -USR1 puma-dev'
 alias puma-stop-alt='launchctl unload /Users/nilshaebel/Library/LaunchAgents/io.puma.dev.plist'
 alias puma-start-alt='launchctl load /Users/nilshaebel/Library/LaunchAgents/io.puma.dev.plist'
