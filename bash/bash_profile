@@ -26,8 +26,13 @@ alias gpl='git pull'
 alias gplh='git pull origin head'
 alias gc='git commit -m'
 
+# PostgreSQL
+alias pg_start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias pg_stop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+
 # Puma
 alias puma-log='nano ~/Library/Logs/puma-dev.log'
+alias puma-purge-log='echo "" > ~/Library/Logs/puma-dev.log'
 alias puma-restart='pkill -USR1 puma-dev'
 alias puma-stop-alt='launchctl unload /Users/nilshaebel/Library/LaunchAgents/io.puma.dev.plist'
 alias puma-start-alt='launchctl load /Users/nilshaebel/Library/LaunchAgents/io.puma.dev.plist'
