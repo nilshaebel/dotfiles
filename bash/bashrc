@@ -59,7 +59,15 @@ export LANGUAGE="en_US:en"
 
 
 #
-# Use TextMate as editor
+# Set default editor
 #
 
-export EDITOR="/usr/local/bin/mate -w"
+# TextMate
+#export EDITOR="/usr/local/bin/mate -w"
+
+# emacs (throws errors on macOS)
+#export EDITOR="/usr/local/bin/emacs"
+
+# emacs, as zsh plugin
+# Consider adding --no-wait
+export EDITOR="/Users/nilshaebel/.oh-my-zsh/plugins/emacs/emacsclient.sh"
