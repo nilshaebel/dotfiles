@@ -15,8 +15,12 @@ source ~/.bashrc
 # Aliases
 #
 
+# General
 alias dev='~/Development'
 alias reload='source ~/Development/dotfiles/bash/bash_profile'
+
+# Capistrano
+alias deploy='cap production deploy'
 
 # Git
 alias ga='git add -A'
