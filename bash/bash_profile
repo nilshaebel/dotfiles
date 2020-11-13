@@ -45,6 +45,9 @@ alias puma-start-alt='launchctl load /Users/nilshaebel/Library/LaunchAgents/io.p
 alias el='echo "" > log/development.log'
 alias credit='bundle exec rails credentials:edit'
 
+# youtube-dl
+alias audio='cd ~/Desktop;youtube-dl -x -f bestaudio'
+alias video='cd ~/Desktop;youtube-dl -f bestvideo+bestaudio'
 
 #
 # set default directory
