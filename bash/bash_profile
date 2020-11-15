@@ -16,11 +16,14 @@ source ~/.bashrc
 #
 
 # General
-alias dev='~/Development'
 alias reload='source ~/Development/dotfiles/bash/bash_profile'
 
 # Capistrano
 alias deploy='cap production deploy'
+
+# Finder
+alias d='~/Desktop'
+alias dev='~/Development'
 
 # Git
 alias ga='git add -A'
@@ -46,8 +49,8 @@ alias el='echo "" > log/development.log'
 alias credit='bundle exec rails credentials:edit'
 
 # youtube-dl
-alias audio='cd ~/Desktop;youtube-dl -x -f bestaudio'
-alias video='cd ~/Desktop;youtube-dl -f bestvideo+bestaudio'
+alias audio='youtube-dl -x -f bestaudio --audio-format mp3'
+alias video='youtube-dl -f bestvideo+bestaudio'
 
 #
 # set default directory
