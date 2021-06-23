@@ -13,6 +13,7 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+export PATH="/usr/local/opt/node@14/bin:$PATH"
 #export PATH="/Library/PostgreSQL/10/bin:$PATH"
 
 
@@ -23,10 +24,10 @@ export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
 export PATH="/usr/local/opt/krb5/bin:$PATH"
 export PATH="/usr/local/opt/krb5/sbin:$PATH"
 
-export LDFLAGS="-L/usr/local/opt/krb5/lib"
-export CPPFLAGS="-I/usr/local/opt/krb5/include"
+export LDFLAGS="-L/usr/local/opt/krb5/lib:$LDFLAGS"
+export CPPFLAGS="-I/usr/local/opt/krb5/include:$CPPFLAGS"
 
-export PKG_CONFIG_PATH="/usr/local/opt/krb5/lib/pkgconfig"
+export PKG_CONFIG_PATH="/usr/local/opt/krb5/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 
 
@@ -34,9 +35,9 @@ export PKG_CONFIG_PATH="/usr/local/opt/krb5/lib/pkgconfig"
 # Ruby compiler config
 #
 
-export LDFLAGS="-L/usr/local/opt/ruby/lib"
-export CPPFLAGS="-I/usr/local/opt/ruby/include"
-export PKG_CONFIG_PATH="/usr/local/opt/readline/lib/pkgconfig"
+export LDFLAGS="-L/usr/local/opt/ruby/lib:$LDFLAGS"
+export CPPFLAGS="-I/usr/local/opt/ruby/include:$CPPFLAGS"
+export PKG_CONFIG_PATH="/usr/local/opt/readline/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 
 
