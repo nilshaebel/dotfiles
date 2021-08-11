@@ -1,0 +1,1022 @@
+#+TITLE: Emacs configuration
+#+AUTHOR: Nils Häbel
+#+EMAIL: nils.haebel@bitsandmachines.com
+#+OPTIONS: num:nil toc:nil
+
+* Issues
+  * TODO Finish keyboard shortcut customization
+  * TODO Add alt+arrow up and alt+arrow down for swapping lines/selection
+  * TODO Add alt+shift+arrow up and alt+shift+arrow down for duplicating lines/selection
+  * TODO When listing a directory put directories to the top
+  * TODO When scrolling the cursor should stay where it is
+  * TODO When scrolling the current selection should be kept the way it is
+  * TODO Clean up .emacs file
+  * TODO Set up projects (e.g. open project => opens certain list of directories, files, etc. => spreads them between different split views/buffers, etc.)
+  * TODO Do research on how to inregrate the Terminal better
+    * TODO When in multi-term tab does not auto-complete
+    * TODO ctrl-c does not work in multi-term (because it's being captured by emacs)
+  * TODO Code completion / code suggestion (for HTML, Ruby, Rails, PHP, JavaScript, ES6, maybe SQL)
+  * TODO Checkout company, projectile, etc. (see coresponding parts of this file)
+  * TODO When in orgmode tab and especially shift-tab don't work as desired
+
+
+* macOS specifics
+
+macOS apparently does not support =ls --dired=, therefore we'll have to disable it:
+
+#+BEGIN_SRC emacs-lisp
+  (when (string= system-type "darwin")
+    (setq dired-use-ls-dired nil))
+#+END_SRC
+
+Always follow symlinks
+
+#+BEGIN_SRC emacs-lisp
+  (setq vc-follow-symlinks t)
+#+END_SRC
+
+
+* Require =use-package=
+
+This should make sure that =use-package= has always been downloaded and the latest
+versions have been compiled and loaded.
+
+#+BEGIN_SRC emacs-lisp
+  (setq use-package-always-ensure t)
+
+  (use-package auto-compile
+    :config (auto-compile-on-load-mode))
+
+  (setq load-prefer-newer t)
+#+END_SRC
+
+
+* Load =sensible-defaults= package
+
+Embed [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] package.
+
+#+BEGIN_SRC emacs-lisp
+  (load-file "~/.emacs.d/sensible-defaults.el")
+
+  (sensible-defaults/increase-gc-threshold)
+  (sensible-defaults/delete-trailing-whitespace)
+  (sensible-defaults/automatically-follow-symlinks)
+  (sensible-defaults/make-scripts-executable)
+  (sensible-defaults/single-space-after-periods)
+  (sensible-defaults/offer-to-create-parent-directories-on-save)
+  (sensible-defaults/overwrite-selected-text)
+  (sensible-defaults/ensure-that-files-end-with-newline)
+  (sensible-defaults/quiet-startup)
+  (sensible-defaults/make-dired-file-sizes-human-readable)
+  (sensible-defaults/always-highlight-code)
+  (sensible-defaults/refresh-buffers-when-files-change)
+  (sensible-defaults/show-matching-parens)
+  (sensible-defaults/flash-screen-instead-of-ringing-bell)
+  (sensible-defaults/open-clicked-files-in-same-frame-on-mac)
+#+END_SRC
+
+
+* Set personal information
+
+#+BEGIN_SRC emacs-lisp
+  (setq user-full-name "Nils Häbel"
+        user-mail-address "nils.haebel@bitsandmachines.com"
+        calendar-location-name "Berlin, Germany")
+#+END_SRC
+
+
+* Helper functions
+
+Taken from https://github.com/hrs/dotfiles
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/rename-file (new-name)
+    (interactive "FNew name: ")
+    (let ((filename (buffer-file-name)))
+      (if filename
+          (progn
+            (when (buffer-modified-p)
+               (save-buffer))
+            (rename-file filename new-name t)
+            (kill-buffer (current-buffer))
+            (find-file new-name)
+            (message "Renamed '%s' -> '%s'" filename new-name))
+        (message "Buffer '%s' isn't backed by a file!" (buffer-name)))))
+
+  (defun hrs/kill-current-buffer ()
+    "Kill the current buffer without prompting."
+    (interactive)
+    (kill-buffer (current-buffer)))
+
+  (defun hrs/add-auto-mode (mode &rest patterns)
+    "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
+    (dolist (pattern patterns)
+      (add-to-list 'auto-mode-alist (cons pattern mode))))
+
+  (defun hrs/append-to-path (path)
+    "Add a path both to the $PATH variable and to Emacs' exec-path."
+    (setenv "PATH" (concat (getenv "PATH") ":" path))
+    (add-to-list 'exec-path path))
+#+END_SRC
+
+
+* User Interface
+
+** Emacs window
+
+Make the emacs window go to exactly 100% of the width on macOS
+see https://github.com/syl20bnr/spacemacs/issues/5633#issuecomment-203771402
+
+#+BEGIN_SRC emacs-lisp
+  (setq frame-resize-pixelwise t)
+#+END_SRC
+
+Auto-save on focus lost
+see https://stackoverflow.com/a/20105335
+
+#+BEGIN_SRC emacs-lisp
+  (defun save-all ()
+    (interactive)
+    (save-some-buffers t))
+
+  (add-hook 'focus-out-hook 'save-all)
+#+END_SRC
+
+Hide default Welcome Screen
+
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
+#+END_SRC
+
+Hide toolbar, menubar and scrollbars
+
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode 0)
+  (menu-bar-mode 0)
+  (scroll-bar-mode -1)
+
+  (set-window-scroll-bars (minibuffer-window) nil nil)
+#+END_SRC
+
+** Theme
+
+Load Zweilight theme. See https://github.com/philiparvidsson/Zweilight-Theme-for-Emacs for more information.
+
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'zweilight t)
+#+END_SRC
+
+** Use =moody= for the modeline
+
+#+BEGIN_SRC emacs-lisp
+  (use-package moody
+    :config
+    (setq x-underline-at-descent-line t)
+    (moody-replace-mode-line-buffer-identification)
+    (moody-replace-vc-mode))
+#+END_SRC
+
+** Use =minions= to hide minor modes
+
+#+BEGIN_SRC emacs-lisp
+   (use-package minions
+     :config
+     (setq minions-mode-line-lighter ""
+           minions-mode-line-delimiters '("" . ""))
+     (minions-mode 1))
+#+END_SRC
+
+** Show date in time in modebar
+
+#+BEGIN_SRC emacs-lisp
+  (setq size-indication-mode nil)
+  (setq line-number-mode nil)
+  (setq column-number-mode nil)
+  (setq display-time-default-load-average nil)
+  (setq display-time-format "%A, %d.%m.%Y %H:%M")
+  (display-time-mode 1)
+  (display-battery-mode 1)
+#+END_SRC
+
+** Disable visual and audio bell
+
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore)
+#+END_SRC
+
+** Fonts
+
+Again, taken from https://github.com/hrs/dotfiles.
+
+#+BEGIN_SRC emacs-lisp
+  (setq hrs/default-font "IBM Plex Mono")
+  (setq hrs/default-font-size 14)
+  (setq hrs/current-font-size hrs/default-font-size)
+
+  (setq hrs/font-change-increment 1.1)
+
+  (defun hrs/font-code ()
+    "Return a string representing the current font (like \"Menlo-14\")."
+    (concat hrs/default-font "-" (number-to-string hrs/current-font-size)))
+
+  (defun hrs/set-font-size ()
+    "Set the font to `hrs/default-font' at `hrs/current-font-size'.
+  Set that for the current frame, and also make it the default for
+  other, future frames."
+    (let ((font-code (hrs/font-code)))
+      (add-to-list 'default-frame-alist (cons 'font font-code))
+      (set-frame-font font-code)))
+
+  (defun hrs/reset-font-size ()
+    "Change font size back to `hrs/default-font-size'."
+    (interactive)
+    (setq hrs/current-font-size hrs/default-font-size)
+    (hrs/set-font-size))
+
+  (defun hrs/increase-font-size ()
+    "Increase current font size by a factor of `hrs/font-change-increment'."
+    (interactive)
+    (setq hrs/current-font-size
+          (ceiling (* hrs/current-font-size hrs/font-change-increment)))
+    (hrs/set-font-size))
+
+  (defun hrs/decrease-font-size ()
+    "Decrease current font size by a factor of `hrs/font-change-increment', down to a minimum size of 1."
+    (interactive)
+    (setq hrs/current-font-size
+          (max 1
+               (floor (/ hrs/current-font-size hrs/font-change-increment))))
+    (hrs/set-font-size))
+
+  (define-key global-map [(hyper 0)] 'hrs/reset-font-size)
+  (define-key global-map [(hyper +)] 'hrs/increase-font-size)
+  (define-key global-map [(hyper -)] 'hrs/decrease-font-size)
+
+  (hrs/reset-font-size)
+#+END_SRC
+
+Legacy method for setting the font:
+
+#+BEGIN_SRC emacs-lisp
+  ;; (set-frame-font "IBM Plex Mono:pixelsize=14:weight=medium")
+#+END_SRC
+
+Set line height
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default line-spacing 4)
+#+END_SRC
+
+Set background color; NH 2018-05-29
+#+BEGIN_SRC emacs-lisp
+  ;; (set-background-color "#121212")
+#+END_SRC
+
+** Highlight the current line using =global-hl-line-mode=
+
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode)
+#+END_SRC
+
+** Highlight uncommitted changes
+
+#+BEGIN_SRC emacs-lisp
+  (use-package diff-hl
+    :config
+    (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+    (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
+#+END_SRC
+
+* Code completion, syntax validation, etc.
+
+** =company-mode=
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company)
+  (add-hook 'after-init-hook 'global-company-mode)
+#+END_SRC
+
+Define alt + tab as code completion shortcut
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "M-<tab>") 'company-complete-common)
+#+END_SRC
+
+** =flycheck=
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck)
+#+END_SRC
+
+** =magit=
+
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :bind
+    ("C-g" . magit-status)
+
+    :config
+    (use-package with-editor)
+    (setq magit-push-always-verify nil)
+    (setq git-commit-summary-max-length 50)
+
+    (with-eval-after-load 'magit-remote
+      (magit-define-popup-action 'magit-push-popup ?P
+        'magit-push-implicitly--desc
+        'magit-push-implicitly ?p t)))
+#+END_SRC
+
+** =projectile=
+
+- Bind =C-f= to fuzzy-finding files in the current project and explicitly set that for other modes
+- Use =ivy= as the completion system
+- When visiting a project with =projectile-switch-project=, open up the top-level directory of the project in =dired= instead of searching for a file in that project
+- Always recursively fuzzy-search for files, not just in a Projectile project
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :bind
+    ("C-f" . 'projectile-ag)
+
+    :config
+    (setq projectile-completion-system 'ivy)
+    (setq projectile-switch-project-action 'projectile-dired)
+    (setq projectile-require-project-root nil))
+
+  (projectile-global-mode)
+#+END_SRC
+
+
+* Editor
+
+** Horizontal scrolling
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key [wheel-right] 'scroll-left)
+  (global-set-key [wheel-left] 'scroll-right)
+#+END_SRC
+
+** Spaces and tabs
+
+Use Spaces instead of Tabs
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
+#+END_SRC
+
+Set tab width to 2
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default tab-width 2)
+  (setq tab-width 2)
+
+  (defvaralias 'c-basic-offset 'tab-width)
+  (defvaralias 'cperl-indent-level 'tab-width)
+
+  ;;(defun my-js-mode-hook ()
+  ;;  (setq-local js-indent-level 'tab-width))
+  ;;(add-hook 'js-mode-hook 'my-js-mode-hook)
+  (setq js-indent-level 'tab-width)
+
+  (use-package css-mode
+    :config
+    (setq css-indent-offset 'tab-width))
+
+  (use-package coffee-mode)
+  (add-hook 'coffee-mode-hook
+            (lambda ()
+              (yas-minor-mode 1)
+              (setq coffee-tab-width 'tab-width)))
+
+  (setq tab-stop-list (number-sequence 2 200 2))
+#+END_SRC
+
+Pressing <tab> should always result in increasing the indentation
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default tab-always-indent t)
+  (setq-default c-tab-always-indent t)
+#+END_SRC
+
+Set up Tab and Shift-Tab to indent/outdent.
+See https://stackoverflow.com/a/42984650
+
+#+BEGIN_SRC emacs-lisp
+  (defun indent-region-custom(numSpaces)
+    (progn
+      ;; default to start and end of current line
+      (setq regionStart (line-beginning-position))
+      (setq regionEnd (line-end-position))
+      ;; if there's a selection, use that instead of the current line
+      (when (use-region-p)
+        (setq regionStart (region-beginning))
+        (setq regionEnd (region-end))
+        )
+
+      (save-excursion ; restore the position afterwards
+        (goto-char regionStart) ; go to the start of region
+        (setq start (line-beginning-position)) ; save the start of the line
+        (goto-char regionEnd) ; go to the end of region
+        (setq end (line-end-position)) ; save the end of the line
+
+        (indent-rigidly start end numSpaces) ; indent between start and end
+        (setq deactivate-mark nil) ; restore the selected region
+        )
+      )
+    )
+
+  (defun untab-region (N)
+    (interactive "p")
+    (indent-region-custom (* (* (or N 1) tab-width)-1))
+    )
+
+  (defun tab-region (N)
+    (interactive "p")
+    (if (active-minibuffer-window)
+        (minibuffer-complete)    ; tab is pressed in minibuffer window -> do completion
+      (if (use-region-p)    ; tab is pressed is any other buffer -> execute with space insertion
+          (indent-region-custom (* (or N 1) tab-width)) ; region was selected, call indent-region-custom
+        (insert "  ") ; else insert four spaces as expected
+        )
+      )
+    )
+
+  (global-set-key (kbd "<tab>") 'tab-region)
+  (global-set-key (kbd "<backtab>") 'untab-region)
+#+END_SRC
+
+** Prevent indentation on newline
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default electric-indent-mode 'newline-and-indent)
+  ;;(setq-default electric-indent-mode nil)
+  ;;(setq-default electric-indent-mode 'newline)
+#+END_SRC
+
+Prevent re-indentation of the document when pressing enter; NH 2018-09-17
+see https://www.emacswiki.org/emacs/AutoIndentMode#toc14
+
+#+BEGIN_SRC emacs-lisp
+  (setq auto-indent-newline-function 'newline-and-indent)
+#+END_SRC
+
+2 spaces instead of 4; NH 2018-09-17
+
+#+BEGIN_SRC emacs-lisp
+  (setq auto-indent-assign-indent-level 2)
+#+END_SRC
+
+** Line numbers
+
+Enable line numbers everywhere
+
+#+BEGIN_SRC emacs-lisp
+  (global-linum-mode 1) ;; OLD?!
+  ;;(global-display-line-numbers-mode 1) ;; doesn't work with the current theme
+#+END_SRC
+
+** New line mode
+
+Require new line at end of file
+
+#+BEGIN_SRC emacs-lisp
+  (setq require-final-newline t)
+#+END_SRC
+
+** Disable line wrap
+
+#+BEGIN_SRC emacs-lisp
+  (setq truncate-lines t)
+  (setq-default truncate-lines t)
+  (setq-default global-visual-line-mode t)
+  (setq auto-fill-mode nil)
+  ;;(toggle-truncate-lines)
+#+END_SRC
+
+* Keyboard shortcuts
+
+Better handling for Macintosh keyboards
+
+#+BEGIN_SRC emacs-lisp
+  ;;(setq mac-option-modifier nil
+  ;;      mac-command-modifier 'control
+  ;;      x-select-enable-clipboard t)
+
+  ;; Better handling for Macintosh keyboards
+  ;;(setq mac-option-modifier nil
+  ;;      mac-command-modifier 'control
+  ;;      mac-control-modifier 'meta
+  ;;      x-select-enable-clipboard t)
+#+END_SRC
+
+Default macOS-style keyboard shortcuts
+See https://gist.github.com/railwaycat/3498096
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key [(hyper a)] 'mark-whole-buffer)
+  (global-set-key [(hyper v)] 'yank)
+  (global-set-key [(hyper c)] 'kill-ring-save)
+  (global-set-key [(hyper s)] 'save-buffer)
+  (global-set-key [(hyper l)] 'goto-line)
+  (global-set-key [(hyper q)] 'save-buffers-kill-emacs)
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  (global-set-key [(hyper f)] 'isearch-edit-string)
+#+END_SRC
+
+Not working (yet):
+
+#+BEGIN_SRC emacs-lisp
+  ;;(global-set-key [(hyper e)] (lambda () (interactive) ('execute)))
+  ;;(global-set-key [(hyper w)] 'kill-current-buffer)
+  ;;(global-set-key [(hyper o)] 'find-file)
+  ;;(global-set-key (kbd "H-o") 'find-file)
+  ;; still missing:
+  ;; ctrl + tab to switch documents
+  ;; cmd + w not working
+  ;; cmd + o for find file
+  ;; cmd + u for redo
+  ;; cmd + n for new buffer
+  ;; cmd + f for search (ctrl + s)
+#+END_SRC
+
+MacOS meta key switcher
+
+#+BEGIN_SRC emacs-lisp
+  (defun mac-switch-meta nil
+    "switch meta between Option and Command"
+    (interactive)
+    (if (eq mac-option-modifier nil)
+      (progn
+        (setq mac-option-modifier 'meta)
+        (setq mac-command-modifier 'hyper)
+      )
+      (progn
+        (setq mac-option-modifier nil)
+        (setq mac-command-modifier 'meta)
+      )
+    )
+  )
+#+END_SRC
+
+Do not have emacs capture right alt/option key and command keys
+See https://gist.github.com/railwaycat/3498096#gistcomment-2615269
+
+#+BEGIN_SRC emacs-lisp
+  (setq ns-right-command-modifier 'none)     ;; original value is 'left'
+  (setq ns-right-alternate-modifier 'none)   ;; original value is 'left'
+  ;;(setq ns-right-option-modifier nil)      ;; alias for ns-right-alternate-modifier
+#+END_SRC
+
+** Clipboard
+
+Better Clipboard handling on macOS
+
+#+BEGIN_SRC emacs-lisp
+  (xclip-mode 1)
+#+END_SRC
+
+** Default directory
+
+#+BEGIN_SRC emacs-lisp
+  (defvar default_directory "/Users/nilshaebel/Development/")
+  (setq default-directory default_directory)
+  (setq insert-default-directory default_directory)
+  (setq command-line-default-directory default_directory)
+#+END_SRC
+
+Show listing of default directory on launch
+
+#+BEGIN_SRC emacs-lisp
+  (setq initial-buffer-choice default-directory)
+#+END_SRC
+
+
+* Programming languages
+
+** Ruby
+
+Insert =end= keywords automatically when I start to define a method, class,
+module, or block.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ruby-end)
+#+END_SRC
+
+Install and enable =projectile-rails= mode in all Rail-related buffers.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile-rails
+    :config
+    (projectile-rails-global-mode))
+#+END_SRC
+
+Don't insert encoding comment
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'ruby-mode-hook
+            (lambda ()
+              (setq ruby-insert-encoding-magic-comment nil)
+              (flycheck-mode)
+              (local-set-key "\r" 'newline-and-indent)))
+#+END_SRC
+
+Associate =ruby-mode= with Gemfiles, gemspecs  and Rakefiles
+
+#+BEGIN_SRC emacs-lisp
+  (hrs/add-auto-mode
+   'ruby-mode
+   "\\Gemfile$"
+   "\\.rake$"
+   "\\.gemspec$"
+   "\\Guardfile$"
+   "\\Rakefile$")
+#+END_SRC
+
+** =sh=
+
+Indent with 2 spaces.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'sh-mode-hook
+            (lambda ()
+              (setq sh-basic-offset 'tab-width
+                    sh-indentation 'tab-width)))
+#+END_SRC
+
+** =web-mode=
+
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode)
+#+END_SRC
+
+In =web-mode= color color-related words with =rainbow-mode=
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (rainbow-mode)
+              (setq web-mode-markup-indent-offset 'tab-width)))
+#+END_SRC
+
+Use =web-mode= with embedded Ruby files, regular HTML, and PHP
+
+#+BEGIN_SRC emacs-lisp
+  (hrs/add-auto-mode
+   'web-mode
+   "\\.erb$"
+   "\\.html$"
+   "\\.php$"
+   "\\.rhtml$")
+#+END_SRC
+
+Tab configuration
+
+#+BEGIN_SRC emacs-lisp
+  (setq web-mode-code-indent-offset tab-width)
+  (setq web-mode-css-indent-offset 'tab-width)
+  (setq web-mode-markup-indent-offset 'tab-width)
+  (setq web-mode-script-padding 'tab-width)
+  (setq web-mode-style-padding 'tab-width)
+#+END_SRC
+
+** YAML
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode)
+#+END_SRC
+
+
+* Terminal
+
+Use multi-term with the login shell:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package multi-term)
+  (setq multi-term-program-switches "--login")
+  (global-set-key (kbd "C-t") 'multi-term)
+#+END_SRC
+
+Furthermore, when in =term-mode=:
+
+- links should be clickable
+- proper pasting in the terminal
+- I bind =M-o= to quickly change windows
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/term-paste (&optional string)
+    (interactive)
+    (process-send-string
+     (get-buffer-process (current-buffer))
+     (if string string (current-kill 0))))
+
+  (add-hook 'term-mode-hook
+            (lambda ()
+              (goto-address-mode)
+              (define-key term-raw-map (kbd "C-y") 'hrs/term-paste)
+              (define-key term-raw-map (kbd "<mouse-2>") 'hrs/term-paste)
+              (define-key term-raw-map (kbd "M-o") 'other-window)))
+#+END_SRC
+
+
+* Org-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org)
+#+END_SRC
+
+Support shift select
+#+BEGIN_SRC emacs-lisp
+  (setq org-support-shift-select t)
+#+END_SRC
+
+Show outline of pretty bullets instead of asterisks:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :init
+    (add-hook 'org-mode-hook 'org-bullets-mode))
+#+END_SRC
+
+Use syntax highlighting in source blocks while editing:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-fontify-natively t)
+#+END_SRC
+
+Make TAB act as if it were issued in a buffer of the language's major mode:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-tab-acts-natively t)
+#+END_SRC
+
+When editing a code snippet, use the current window rather than popping open a
+new one:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-window-setup 'current-window)
+#+END_SRC
+
+Allow export to markdown and beamer:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-md)
+  (require 'ox-beamer)
+#+END_SRC
+
+Don't ask before evaluating code blocks:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
+Don't include footer in exported HTML document:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-html-postamble nil)
+#+END_SRC
+
+Always use Safari as my webbrowser:
+
+#+BEGIN_SRC emacs-lisp
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "safari")
+
+  (setenv "BROWSER" "safari")
+#+END_SRC
+
+Hide dotfiles by default, but toggle their visibility with =.=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dired-hide-dotfiles
+    :config
+    (dired-hide-dotfiles-mode)
+    (define-key dired-mode-map "." 'dired-hide-dotfiles-mode))
+#+END_SRC
+
+These are the switches that get passed to =ls= when =dired= gets a list of
+files. We're using:
+
+- =l=: Use the long listing format.
+- =h=: Use human-readable sizes.
+- =v=: Sort numbers naturally.
+- =A=: Almost all. Doesn't include "=.=" or "=..=".
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dired-listing-switches "-lhvA")
+#+END_SRC
+
+Kill buffers of files/directories that are deleted in =dired=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq dired-clean-up-buffers-too t)
+#+END_SRC
+
+Always copy directories recursively instead of asking every time.
+
+#+BEGIN_SRC emacs-lisp
+  (setq dired-recursive-copies 'always)
+#+END_SRC
+
+Ask before recursively /deleting/ a directory, though.
+
+#+BEGIN_SRC emacs-lisp
+  (setq dired-recursive-deletes 'top)
+#+END_SRC
+
+
+* Editing settings
+
+** Emacs configuration
+
+Use =C-c e= to quickly open the Emacs configuration file.
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/visit-emacs-config ()
+    (interactive)
+    (find-file "~/.emacs.d/configuration.org"))
+
+  (global-set-key (kbd "C-c e") 'hrs/visit-emacs-config)
+#+END_SRC
+
+** Always kill current buffer
+
+Assume that I always want to kill the current buffer when hitting =C-x k=.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x k") 'hrs/kill-current-buffer)
+#+END_SRC
+
+** Look for executables in =/usr/local/bin=
+
+#+BEGIN_SRC emacs-lisp
+  (hrs/append-to-path "/usr/local/bin")
+#+END_SRC
+
+** Save my location within a file
+
+Using =save-place-mode= saves the location of point for every file I visit. If I
+close the file or close the editor, then later re-open it, point will be at the
+last place I visited.
+
+#+BEGIN_SRC emacs-lisp
+  (save-place-mode t)
+#+END_SRC
+
+** Install and configure =which-key=
+
+=which-key= displays the possible completions for a long keybinding. That's
+really helpful for some modes (like =projectile=, for example).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :config (which-key-mode))
+#+END_SRC
+
+** Configure =ivy= and =counsel=
+
+I use =ivy= and =counsel= as my completion framework.
+
+This configuration:
+
+- Uses =counsel-M-x= for command completion,
+- Replaces =isearch= with =swiper=,
+- Uses =smex= to maintain history,
+- Enables fuzzy matching everywhere except swiper (where it's thoroughly
+  unhelpful), and
+- Includes recent files in the switch buffer.
+
+This is not working to my satisfaction yet and therefore disabled:
+
+#+BEGIN_SRC emacs-lisp
+;;  (use-package counsel
+;;    :bind
+;;    ("M-x" . 'counsel-M-x)
+;;    ("C-s" . 'swiper)
+;;
+;;    :config
+;;    (use-package flx)
+;;    (use-package smex)
+;;
+;;    (ivy-mode 1)
+;;    (setq ivy-use-virtual-buffers t)
+;;    (setq ivy-count-format "(%d/%d) ")
+;;    (setq ivy-initial-inputs-alist nil)
+;;    (setq ivy-re-builders-alist
+;;          '((swiper . ivy--regex-plus)
+;;            (t . ivy--regex-fuzzy))))
+#+END_SRC
+
+** Switch and rebalance windows when splitting
+
+When splitting a window, I invariably want to switch to the new window. This
+makes that automatic.
+
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/split-window-below-and-switch ()
+    "Split the window horizontally, then switch to the new pane."
+    (interactive)
+    (split-window-below)
+    (balance-windows)
+    (other-window 1))
+
+  (defun hrs/split-window-right-and-switch ()
+    "Split the window vertically, then switch to the new pane."
+    (interactive)
+    (split-window-right)
+    (balance-windows)
+    (other-window 1))
+
+  (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
+  (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
+#+END_SRC
+
+** Auto-save and backup files
+
+Store emacs backup files somewhere else; NH 2018-05-30
+see https://stackoverflow.com/a/151946
+
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist `(("." . "~/.saves")))
+  (setq backup-by-copying t)
+  (setq delete-old-versions t
+    kept-new-versions 6
+    kept-old-versions 2
+    version-control t)
+#+END_SRC
+
+Auto-save and backup files
+
+#+BEGIN_SRC emacs-lisp
+  (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
+  (defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
+  (setq backup-directory-alist (list (cons ".*" backup-dir)))
+  (setq auto-save-list-file-prefix autosave-dir)
+  (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+  (put 'scroll-left 'disabled nil)
+#+END_SRC
+
+** FullScreen
+
+Increase to full width and height on startup; NH 2018-05-30
+see https://www.emacswiki.org/emacs/FullScreen#toc26
+
+#+BEGIN_SRC emacs-lisp
+  (toggle-frame-maximized)
+  ;;(toggle-frame-fullscreen)
+#+END_SRC
+
+
+* Set custom keybindings
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "M-o") 'other-window)
+#+END_SRC
+
+Remap when working in terminal Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (define-key input-decode-map "\e[1;2A" [S-up])
+#+END_SRC
+
+
+* Custom Variables
+
+(custom-set-variables
+  '(display-battery-mode 1)
+  '(display-time-24hr-format 1)
+  '(display-time-day-and-date 1)
+  '(display-time-default-load-average nil)
+  '(display-time-format "%A, %d.%m.%Y %H:%M")
+  '(initial-frame-alist (quote ((fullscreen . fullscreen))))
+  '(line-number-mode nil)
+  '(package-selected-packages
+    (quote
+      (orgtbl-show-header csv csv-mode dired-sidebar diredful zweilight-theme emoji-display web-mode web-mode-edit-element mmm-mode php-mode markdown-mode stylus-mode yaml-mode coffee-mode xclip pug-mode)))
+  '(size-indication-mode nil)
+  '(truncate-lines t)
+  '(web-mode-code-indent-offset 'tab-width)
+  '(web-mode-css-indent-offset 'tab-width)
+  '(web-mode-markup-indent-offset 'tab-width)
+  '(web-mode-script-padding 'tab-width)
+  '(web-mode-style-padding 'tab-width))
+
+Backup:
+
+;;  (custom-set-variables
+;;  '(display-battery-mode 1)
+;;  '(display-time-24hr-format 1)
+;;  '(display-time-day-and-date 1)
+;;  '(display-time-default-load-average nil)
+;;  '(display-time-format "%A, %d.%m.%Y %H:%M")
+;;  '(initial-frame-alist (quote ((fullscreen . fullscreen))))
+;;  '(line-number-mode nil)
+;;  '(package-selected-packages
+;;    (quote
+;;      (orgtbl-show-header csv csv-mode dired-sidebar diredful zweilight-theme emoji-display web-mode web-mode-edit-element mmm-mode php-mode markdown-mode stylus-mode yaml-mode coffee-mode xclip pug-mode)))
+;;  '(size-indication-mode nil)
+;;  '(truncate-lines t)
+;;  '(web-mode-code-indent-offset 'tab-width)
+;;  '(web-mode-css-indent-offset 'tab-width)
+;;  '(web-mode-markup-indent-offset 'tab-width)
+;;  '(web-mode-script-padding 'tab-width)
+;;  '(web-mode-style-padding 'tab-width))
