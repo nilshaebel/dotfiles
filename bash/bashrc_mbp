@@ -1,0 +1,77 @@
+#
+# .bashrc
+#
+
+
+#
+# Set path
+#
+
+#export PATH="/usr/local/opt/ruby/bin:$PATH"
+#export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
+export PATH="/usr/local/opt/ruby@2.7/bin:$PATH"
+export PATH="/usr/local/lib/ruby/gems/2.7.0/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/node@14/bin:$PATH"
+#export PATH="/Library/PostgreSQL/10/bin:$PATH"
+
+
+#
+# PostgreSQL config
+#
+
+export PATH="/usr/local/opt/krb5/bin:$PATH"
+export PATH="/usr/local/opt/krb5/sbin:$PATH"
+
+export LDFLAGS="-L/usr/local/opt/krb5/lib:$LDFLAGS"
+export CPPFLAGS="-I/usr/local/opt/krb5/include:$CPPFLAGS"
+
+export PKG_CONFIG_PATH="/usr/local/opt/krb5/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+
+
+#
+# Ruby compiler config
+#
+
+#export LDFLAGS="-L/usr/local/opt/ruby/lib:$LDFLAGS"
+#export CPPFLAGS="-I/usr/local/opt/ruby/include:$CPPFLAGS"
+export LDFLAGS="-L/usr/local/opt/ruby@2.7/lib:$LDFLAGS"
+export CPPFLAGS="-I/usr/local/opt/ruby@2.7/include:$CPPFLAGS"
+#export PKG_CONFIG_PATH="/usr/local/opt/readline/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PKG_CONFIG_PATH="/usr/local/opt/ruby@2.7/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+
+
+#
+# Disable homebrew analytics (Ugh, yuck!)
+#
+
+export HOMEBREW_NO_ANALYTICS=1
+
+
+
+#
+# Set default language
+#
+
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US"
+export LANGUAGE="en_US:en"
+
+
+
+#
+# Set default editor
+#
+
+# emacs (throws errors on macOS)
+# export EDITOR="/usr/local/bin/emacs"
+
+# emacs, as zsh plugin
+# Consider adding --no-wait
+# export EDITOR="/Users/nilshaebel/.oh-my-zsh/plugins/emacs/emacsclient.sh"
+
+# nano it is!
+export EDITOR="nano -w"

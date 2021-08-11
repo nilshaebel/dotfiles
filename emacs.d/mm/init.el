@@ -34,8 +34,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (htmlize rainbow-mode smex flx counsel which-key dired-hide-dotfiles org-bullets multi-term projectile-rails ruby-end company diff-hl moody auto-compile zweilight-theme yaml-mode xclip web-mode-edit-element use-package stylus-mode pug-mode php-mode orgtbl-show-header mmm-mode markdown-mode literate-coffee-mode emoji-display diredful dired-sidebar delight csv-mode csv))))
+   '(web-mode htmlize rainbow-mode smex flx counsel which-key dired-hide-dotfiles org-bullets multi-term projectile-rails ruby-end company diff-hl moody auto-compile zweilight-theme yaml-mode xclip web-mode-edit-element use-package stylus-mode pug-mode php-mode orgtbl-show-header mmm-mode markdown-mode literate-coffee-mode emoji-display diredful dired-sidebar delight csv-mode csv)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
