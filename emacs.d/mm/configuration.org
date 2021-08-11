@@ -3,9 +3,7 @@
 #+EMAIL: nils.haebel@bitsandmachines.com
 #+OPTIONS: num:nil toc:nil
 
-* Emacs configuration (MBP 15)
-
-** Issues
+* Issues
   * TODO Finish keyboard shortcut customization
   * TODO Add alt+arrow up and alt+arrow down for swapping lines/selection
   * TODO Add alt+shift+arrow up and alt+shift+arrow down for duplicating lines/selection
@@ -22,7 +20,7 @@
   * TODO When in orgmode tab and especially shift-tab don't work as desired
 
 
-** macOS specifics
+* macOS specifics
 
 macOS apparently does not support =ls --dired=, therefore we'll have to disable it:
 
@@ -38,7 +36,7 @@ Always follow symlinks
 #+END_SRC
 
 
-** Require =use-package=
+* Require =use-package=
 
 This should make sure that =use-package= has always been downloaded and the latest
 versions have been compiled and loaded.
@@ -53,7 +51,7 @@ versions have been compiled and loaded.
 #+END_SRC
 
 
-** Load =sensible-defaults= package
+* Load =sensible-defaults= package
 
 Embed [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] package.
 
@@ -78,7 +76,7 @@ Embed [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] pack
 #+END_SRC
 
 
-** Set personal information
+* Set personal information
 
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Nils Häbel"
@@ -87,7 +85,7 @@ Embed [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] pack
 #+END_SRC
 
 
-** Helper functions
+* Helper functions
 
 Taken from https://github.com/hrs/dotfiles
 
@@ -122,7 +120,7 @@ Taken from https://github.com/hrs/dotfiles
 #+END_SRC
 
 
-** User Interface
+* User Interface
 
 ** Emacs window
 
@@ -196,8 +194,6 @@ Load Zweilight theme. See https://github.com/philiparvidsson/Zweilight-Theme-for
   (setq column-number-mode nil)
   (setq display-time-default-load-average nil)
   (setq display-time-format "%A, %d.%m.%Y %H:%M")
-  (setq display-time-24hr-format 1)
-  (setq display-time-day-and-date 1)
   (display-time-mode 1)
   (display-battery-mode 1)
 #+END_SRC
@@ -291,8 +287,7 @@ Set background color; NH 2018-05-29
     (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode))
 #+END_SRC
 
-
-** Code completion, syntax validation, etc.
+* Code completion, syntax validation, etc.
 
 ** =company-mode=
 
@@ -352,7 +347,7 @@ Define alt + tab as code completion shortcut
 #+END_SRC
 
 
-** Editor
+* Editor
 
 ** Horizontal scrolling
 
@@ -498,8 +493,7 @@ Require new line at end of file
   ;;(toggle-truncate-lines)
 #+END_SRC
 
-
-** Keyboard shortcuts
+* Keyboard shortcuts
 
 Better handling for Macintosh keyboards
 
@@ -575,10 +569,10 @@ See https://gist.github.com/railwaycat/3498096#gistcomment-2615269
 
 ** Clipboard
 
-Better Clipboard handling on macOS - not working on older operating systems!
+Better Clipboard handling on macOS
 
 #+BEGIN_SRC emacs-lisp
-;;  (xclip-mode 1)
+  (xclip-mode 1)
 #+END_SRC
 
 ** Default directory
@@ -597,7 +591,7 @@ Show listing of default directory on launch
 #+END_SRC
 
 
-** Programming languages
+* Programming languages
 
 ** Ruby
 
@@ -692,7 +686,7 @@ Tab configuration
 #+END_SRC
 
 
-** Terminal
+* Terminal
 
 Use multi-term with the login shell:
 
@@ -724,7 +718,7 @@ Furthermore, when in =term-mode=:
 #+END_SRC
 
 
-** Org-mode
+* Org-mode
 
 #+BEGIN_SRC emacs-lisp
   (use-package org)
@@ -830,7 +824,7 @@ Ask before recursively /deleting/ a directory, though.
 #+END_SRC
 
 
-** Editing settings
+* Editing settings
 
 ** Emacs configuration
 
@@ -972,7 +966,7 @@ see https://www.emacswiki.org/emacs/FullScreen#toc26
 #+END_SRC
 
 
-** Set custom keybindings
+* Set custom keybindings
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-o") 'other-window)
@@ -985,14 +979,26 @@ Remap when working in terminal Emacs.
 #+END_SRC
 
 
-** Custom Variables
+* Custom Variables
 
 (custom-set-variables
+  '(display-battery-mode 1)
+  '(display-time-24hr-format 1)
+  '(display-time-day-and-date 1)
+  '(display-time-default-load-average nil)
+  '(display-time-format "%A, %d.%m.%Y %H:%M")
   '(initial-frame-alist (quote ((fullscreen . fullscreen))))
   '(line-number-mode nil)
   '(package-selected-packages
     (quote
-      (orgtbl-show-header csv csv-mode dired-sidebar diredful zweilight-theme emoji-display web-mode web-mode-edit-element mmm-mode php-mode markdown-mode stylus-mode yaml-mode coffee-mode xclip pug-mode))))
+      (orgtbl-show-header csv csv-mode dired-sidebar diredful zweilight-theme emoji-display web-mode web-mode-edit-element mmm-mode php-mode markdown-mode stylus-mode yaml-mode coffee-mode xclip pug-mode)))
+  '(size-indication-mode nil)
+  '(truncate-lines t)
+  '(web-mode-code-indent-offset 'tab-width)
+  '(web-mode-css-indent-offset 'tab-width)
+  '(web-mode-markup-indent-offset 'tab-width)
+  '(web-mode-script-padding 'tab-width)
+  '(web-mode-style-padding 'tab-width))
 
 Backup:
 

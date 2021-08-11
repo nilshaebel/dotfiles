@@ -27,7 +27,7 @@ cd ~/.emacs.d
 mv configuration.el configuration.el.bak
 mv configuration.org configuration.org.bak
 mv init.el init.el.bak
-ln -s ~/Development/dotfiles/emacs.d/number_two/configuration.org configuration.org
-ln -s ~/Development/dotfiles/emacs.d/number_two/init.el init.el
+ln -s ~/Development/dotfiles/emacs.d/mm/configuration.org configuration.org
+ln -s ~/Development/dotfiles/emacs.d/mm/init.el init.el
 wget https://raw.githubusercontent.com/hrs/sensible-defaults.el/master/sensible-defaults.el
 echo ""

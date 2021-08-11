@@ -8,8 +8,7 @@
 ;;
 
 (require 'package)
-;;  (add-to-list 'package-archives (cons "melpa-stable" (concat "https://stable.melpa.org/packages/")) t)
-  (add-to-list 'package-archives (cons "melpa" (concat "https://melpa.org/packages/")) t)
+  (add-to-list 'package-archives (cons "melpa-stable" (concat "https://stable.melpa.org/packages/")) t)
 (package-initialize)
 
 
@@ -35,8 +34,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (coffee-mode htmlize rainbow-mode smex flx counsel which-key dired-hide-dotfiles org-bullets multi-term projectile-rails ruby-end company diff-hl moody auto-compile zweilight-theme yaml-mode xclip web-mode web-mode-edit-element use-package stylus-mode pug-mode php-mode orgtbl-show-header mmm-mode markdown-mode literate-coffee-mode emoji-display diredful dired-sidebar delight csv-mode csv))))
+   '(web-mode htmlize rainbow-mode smex flx counsel which-key dired-hide-dotfiles org-bullets multi-term projectile-rails ruby-end company diff-hl moody auto-compile zweilight-theme yaml-mode xclip web-mode-edit-element use-package stylus-mode pug-mode php-mode orgtbl-show-header mmm-mode markdown-mode literate-coffee-mode emoji-display diredful dired-sidebar delight csv-mode csv)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
