@@ -19,7 +19,7 @@ source ~/.bashrc
 alias reload='source ~/Development/dotfiles/bash/bash_profile'
 
 # Capistrano
-alias deploy='cap production deploy'
+alias deploy='bundle exec cap production deploy'
 
 # Finder
 alias d='~/Desktop'
