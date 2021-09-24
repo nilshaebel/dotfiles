@@ -49,6 +49,9 @@ alias puma-start-alt='launchctl load /Users/nilshaebel/Library/LaunchAgents/io.p
 alias el='echo "" > log/development.log'
 alias credit='bundle exec rails credentials:edit'
 
+# Visual Studio Code
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
 # youtube-dl
 alias audio='youtube-dl -x -f bestaudio --audio-format mp3'
 alias video='youtube-dl -f bestvideo+bestaudio'
