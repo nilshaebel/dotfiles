@@ -19,7 +19,7 @@ source ~/.bashrc
 alias reload='source ~/Development/dotfiles/bash/bash_profile'
 
 # Capistrano
-alias deploy='cap production deploy'
+alias deploy='bundle exec cap production deploy'
 
 # Finder
 alias d='~/Desktop'
@@ -50,6 +50,9 @@ alias credit='bundle exec rails credentials:edit'
 alias el='echo "" > log/development.log'
 alias rc='bundle exec rails console'
 alias rs='bundle exec rails s'
+
+# Visual Studio Code
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # youtube-dl
 alias audio='youtube-dl -x -f bestaudio --audio-format mp3'
