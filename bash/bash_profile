@@ -47,6 +47,7 @@ alias puma-start-alt='launchctl load /Users/nilshaebel/Library/LaunchAgents/io.p
 
 # Rails
 alias credit='bundle exec rails credentials:edit'
+alias dbdump='bundle exec cap production server:backup_database'
 alias el='echo "" > log/development.log'
 alias rc='bundle exec rails console'
 alias rs='bundle exec rails s'
