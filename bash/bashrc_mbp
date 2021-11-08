@@ -73,5 +73,8 @@ export LANGUAGE="en_US:en"
 # Consider adding --no-wait
 # export EDITOR="/Users/nilshaebel/.oh-my-zsh/plugins/emacs/emacsclient.sh"
 
-# nano it is!
-export EDITOR="nano -w"
+# nano
+#export EDITOR="nano -w"
+
+# TextMate 2
+export EDITOR="/usr/local/bin/mate -w"
