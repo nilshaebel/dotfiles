@@ -3,3 +3,5 @@
 	email = nils.haebel@bitsandmachines.com
 [core]
 	excludesfile = ~/.gitignore_global
+[pull]
+	rebase = false
