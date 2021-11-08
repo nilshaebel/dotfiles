@@ -52,9 +52,6 @@ alias el='echo "" > log/development.log'
 alias rc='bundle exec rails console'
 alias rs='bundle exec rails s'
 
-# Visual Studio Code
-export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-
 # youtube-dl
 alias audio='youtube-dl -x -f bestaudio --audio-format mp3'
 alias video='youtube-dl -f bestvideo+bestaudio'

@@ -72,12 +72,5 @@ export LANGUAGE="en_US:en"
 # Set default editor
 #
 
-# emacs (throws errors on macOS)
-# export EDITOR="/usr/local/bin/emacs"
-
-# emacs, as zsh plugin
-# Consider adding --no-wait
-# export EDITOR="/Users/nilshaebel/.oh-my-zsh/plugins/emacs/emacsclient.sh"
-
-# nano it is!
-export EDITOR="nano -w"
+# TextMate 2
+export EDITOR="/usr/local/bin/mate -w"
