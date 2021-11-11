@@ -71,7 +71,7 @@ plugins=(
   emacs
   emoji
   git
-  osx
+  macos
   postgres
   rails
   ruby
