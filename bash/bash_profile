@@ -26,6 +26,7 @@ alias d='~/Desktop'
 alias dev='~/Development'
 
 # Git
+alias commits='git log --date=format:"%Y-%m-%d %H:%M" --pretty=format:"%C(auto,green)[%h]%C(auto,reset) %C(auto,blue)%an%C(auto,reset) %C(auto,yellow)%ad%C(auto,reset): %s" -32'
 alias ga='git add -A'
 alias gp='git push origin head'
 alias gs='git status'
