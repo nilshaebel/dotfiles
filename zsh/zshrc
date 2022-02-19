@@ -127,3 +127,6 @@ setopt histignorespace
 
 # Load regular ~/.bash_profile configuration
 source ~/.bash_profile
+
+# Initialize rbenv
+eval "$(rbenv init - zsh)"
