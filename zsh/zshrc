@@ -128,5 +128,10 @@ setopt histignorespace
 # Load regular ~/.bash_profile configuration
 source ~/.bash_profile
 
+
 # Initialize rbenv
 eval "$(rbenv init - zsh)"
+
+# Initialize nvs
+export NVS_HOME="$HOME/.nvs"
+[ -s "$NVS_HOME/nvs.sh" ] && . "$NVS_HOME/nvs.sh"
