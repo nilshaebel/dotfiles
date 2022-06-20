@@ -57,4 +57,3 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # enable plain-text mode
 defaults write com.apple.TextEdit RichText -int 0
-
