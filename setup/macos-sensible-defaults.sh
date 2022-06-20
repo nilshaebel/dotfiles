@@ -1,3 +1,6 @@
+# shorten the delay for showing the Proxy Icon in macOS Big Sur -.-
+defaults write -g NSToolbarTitleViewRolloverDelay -float 0
+
 # increase pointer speed for an external mouse
 defaults write -g com.apple.mouse.scaling 5.0
 
