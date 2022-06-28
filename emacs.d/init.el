@@ -8,7 +8,7 @@
 ;;
 
 (require 'package)
-  (add-to-list 'package-archives (cons "melpa-stable" (concat "https://stable.melpa.org/packages/")) t)
+  (add-to-list 'package-archives (cons "melpa" (concat "https://melpa.org/packages/")) t)
 (package-initialize)
 
 
