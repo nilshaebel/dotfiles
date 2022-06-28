@@ -6,6 +6,14 @@ ln -s ~/Development/dotfiles/zsh/zshrc .zshrc
 echo "zsh configuration done."
 echo ""
 
+echo "SSH configuration..."
+cd ~/
+mkdir .ssh
+cd .ssh
+ln -s ~/Development/dotfiles/ssh/config config
+echo "SSH configuration done."
+echo ""
+
 echo "git configuration..."
 mv .gitconfig .gitconfig.bak
 mv .gitignore_global .gitignore_global.bak
