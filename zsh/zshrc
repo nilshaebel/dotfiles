@@ -163,6 +163,8 @@ export NVS_HOME="$HOME/.nvs"
 ##export PATH="/Library/PostgreSQL/10/bin:$PATH"
 #export PATH="/usr/local/opt/ruby/bin:$PATH"
 
+# Python
+export PATH="/opt/homebrew/opt/python@3.10/libexec/bin:$PATH"
 
 # PostgreSQL config
 #export PATH="/usr/local/opt/krb5/bin:$PATH"
