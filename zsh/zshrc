@@ -163,6 +163,11 @@ export NVS_HOME="$HOME/.nvs"
 ##export PATH="/Library/PostgreSQL/10/bin:$PATH"
 #export PATH="/usr/local/opt/ruby/bin:$PATH"
 
+
+# MariaDB
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
+
+
 # Python
 export PATH="/opt/homebrew/opt/python@3.10/libexec/bin:$PATH"
 
