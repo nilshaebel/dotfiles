@@ -178,6 +178,12 @@ export PATH="/opt/homebrew/opt/python@3.10/libexec/bin:$PATH"
 #export CPPFLAGS="-I/usr/local/opt/krb5/include:$CPPFLAGS"
 #export PKG_CONFIG_PATH="/usr/local/opt/krb5/lib/pkgconfig:$PKG_CONFIG_PATH"
 
+# PostgreSQL 15
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/postgresql@15/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/postgresql@15/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
+
 
 # Ruby compiler config
 #export LDFLAGS="-L/usr/local/opt/ruby/lib"
