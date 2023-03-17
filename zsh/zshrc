@@ -169,12 +169,6 @@ export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 # Python
 export PATH="/opt/homebrew/opt/python@3.10/libexec/bin:$PATH"
 
-# PostgreSQL config
-#export PATH="/usr/local/opt/krb5/bin:$PATH"
-#export PATH="/usr/local/opt/krb5/sbin:$PATH"
-#export LDFLAGS="-L/usr/local/opt/krb5/lib:$LDFLAGS"
-#export CPPFLAGS="-I/usr/local/opt/krb5/include:$CPPFLAGS"
-#export PKG_CONFIG_PATH="/usr/local/opt/krb5/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # PostgreSQL 15
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
