@@ -233,6 +233,10 @@ alias gs='git status'
 alias gpl='git pull'
 alias gc='git commit -m'
 
+# HomeBrew
+export HOMEBREW_BREWFILE="~/Development/dotfiles/Brewfile"
+export HOMEBREW_CASK_OPTS="--appdir=$HOME/Applications"
+
 # Puma
 alias puma-log='nano ~/Library/Logs/puma-dev.log'
 alias puma-purge-log='echo "" > ~/Library/Logs/puma-dev.log'
