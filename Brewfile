@@ -26,11 +26,17 @@ brew "imagemagick"
 # Casks
 #
 
+cask "1password@7"
+
+cask "audacity"
+
 # cask "chromium"
 # Ungoogled Chromium
 cask "eloston-chromium"
 
 cask "firefox"
+
+cask "gpg-suite-no-mail"
 
 cask "libreoffice"
 
