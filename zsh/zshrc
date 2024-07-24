@@ -171,11 +171,7 @@ export PATH="/opt/homebrew/opt/python@3.10/libexec/bin:$PATH"
 
 
 # PostgreSQL 15
-export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/postgresql@15/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/postgresql@15/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
-
+# see device-specific config file
 
 # Ruby compiler config
 #export LDFLAGS="-L/usr/local/opt/ruby/lib"
@@ -204,6 +200,13 @@ export LANGUAGE="en_US:en"
 # Set default editor
 #export EDITOR="nano -w"
 export EDITOR="/usr/local/bin/mate -w"
+
+
+#
+# device-specific
+#
+
+source ~/Development/dotfiles/zsh/MY_DEVICE
 
 
 
