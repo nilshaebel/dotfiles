@@ -30,6 +30,8 @@ cask "1password@7"
 
 cask "audacity"
 
+cask "brave-browser"
+
 # cask "chromium"
 # Ungoogled Chromium
 cask "eloston-chromium"
