@@ -38,6 +38,8 @@ cask "eloston-chromium"
 
 cask "firefox"
 
+cask "font-ibm-plex"
+
 cask "gpg-suite-no-mail"
 
 cask "libreoffice"
