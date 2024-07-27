@@ -45,3 +45,5 @@ cask "gpg-suite-no-mail"
 cask "libreoffice"
 
 cask "mediathekview"
+
+cask "vlc"
