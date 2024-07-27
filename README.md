@@ -10,6 +10,8 @@ Additional settings and changes I haven't found a way for automating (yet):
 - Go through the Settings Pane and verify everything is to my liking; some tipps:
   - LibreOffice Calc - View: Uncheck "Page breaks"
 
+- Tools - AutoCorrect Options - Options: Uncheck "Capitalize first letter of every sentence"
+
 - Tools - Customize - Keyboard; assign missing keyboard shortcuts:
   - alt + enter: Cell Edit Mode
   - alt + arrow left: Insert column before
