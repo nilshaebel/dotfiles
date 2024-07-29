@@ -15,11 +15,31 @@ tap "homebrew/cask"
 cask_args appdir: "~/Applications", require_sha: true
 
 
+
 #
 # Regular formulae
 #
 
+brew "docker"
+
+brew "erlang"
+
+brew "ffmpeg"
+
+brew "git"
+
 brew "imagemagick"
+
+brew "mariadb"
+
+brew "php"
+
+brew "poppler"
+
+brew "postgresql"
+
+brew "ruby"
+
 
 
 #
@@ -32,9 +52,13 @@ cask "ableton-live-suite@11"
 
 cask "acorn"
 
+cask "aerial"
+
 cask "alfred"
 
 cask "audacity"
+
+cask "bitwarden"
 
 cask "brave-browser"
 
@@ -72,6 +96,10 @@ cask "protonmail-bridge"
 
 # cask "protonmail-import-export" # deprecated
 
+cask "visual-studio-code"
+
 cask "teamviewer"
+
+cask "textmate"
 
 cask "vlc"
