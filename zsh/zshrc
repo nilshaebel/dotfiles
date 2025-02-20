@@ -1,3 +1,4 @@
+
 #
 # Default oh-my-zsh configuration (updated NH 20220620)
 #
@@ -253,11 +254,6 @@ alias credit='bin/rails credentials:edit'
 alias el='echo "" > log/development.log'
 alias rc='bin/rails console'
 alias rs='bin/rails s'
-
-# youtube-dl
-alias audio='youtube-dl -x -f bestaudio --audio-format mp3'
-alias video='youtube-dl -f bestvideo+bestaudio'
-
 
 # set default directory
 cd ~/Development
