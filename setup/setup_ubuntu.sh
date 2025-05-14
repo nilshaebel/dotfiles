@@ -13,39 +13,32 @@ echo ""
 echo "Installing packages"
 
 # @TODO: Add missing packages
-sudo apt-get install -y curl fonts-ibm-plex git sqlite3 typecatcher wget yt-dlp
+sudo apt-get install -y curl ffmpeg fonts-ibm-plex git sqlite3 typecatcher wget yt-dlp
 
 echo ""
 
 
 # @TODO: Install GUI apps via "App Store" / snap
+sudo snap install audacity bitwarden brave chromium discord opera pdfarranger vivaldi vlc
+sudo snap connect audacity:alsa
+sudo snap install --classic emacs
+
+./app-localsend.sh
+./app-signal.sh
+./app-vscode.sh
+./install-fonts.sh
+
 # - 1Password
-# - Audacity
-# - Bitwarden
-# - Brave Browser
-# - Chromium
 # - (Discord)
-# - (Dropbox)
-# - Emacs
-# - LibreOffice
 # - "Master PDF Editor" (?)
-# - Mozilla Firefox
-# - Mozilla Thunderbird
-# - (Mumble)
 # - PDF Arranger (?)
 # - Proton Mail
 # - Proton Mail Bridge
 # - Proton Mail export/import tool
-# - Signal
 # - (Spotify)
 # - (Steam)
 # - Synology Drive Client
 # - TeamViewer
-# - Visual Studio Code
-# - (Vivaldi)
-# - VLC player
-# - (What'sApp)
-# - ?
 
 # @TODO: Generate SSH key + remind to store in relevant places
 
@@ -56,7 +49,7 @@ echo ""
 # @TODO: Set up zsh + oh-my-zsh + plugins
 
 # @TODO: Set up databases SQLite3, MariaDB, PostgreSQL, Redis
- 
+
 # @TODO: Set up PHP
 
 # @TODO: Set up Ruby, RubyGems, rbenv, Bundler and Rails
