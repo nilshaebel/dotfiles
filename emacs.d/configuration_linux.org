@@ -1,4 +1,4 @@
-#+TITLE: Emacs configuration
+#+TITLE: Emacs configuration (Linux)
 #+AUTHOR: Nils Häbel
 #+EMAIL: nils.haebel@bitsandmachines.com
 #+OPTIONS: num:nil toc:nil
@@ -513,25 +513,6 @@ Not working (yet):
   ;; cmd + u for redo
   ;; cmd + n for new buffer
   ;; cmd + f for search (ctrl + s)
-#+END_SRC
-
-MacOS meta key switcher
-
-#+BEGIN_SRC emacs-lisp
-  (defun mac-switch-meta nil
-    "switch meta between Option and Command"
-    (interactive)
-    (if (eq mac-option-modifier nil)
-      (progn
-        (setq mac-option-modifier 'meta)
-        (setq mac-command-modifier 'hyper)
-      )
-      (progn
-        (setq mac-option-modifier nil)
-        (setq mac-command-modifier 'meta)
-      )
-    )
-  )
 #+END_SRC
 
 Do not have emacs capture right alt/option key and command keys

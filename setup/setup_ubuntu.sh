@@ -15,6 +15,9 @@ echo "Installing packages"
 # @TODO: Add missing packages
 sudo apt-get install -y curl ffmpeg fonts-ibm-plex git sqlite3 typecatcher wget yt-dlp
 
+# MySQL / MariaDB requirements
+sudo apt-get install -y libmysql-ruby libmysqlclient-dev libmysqlclient-dev
+
 echo ""
 
 
