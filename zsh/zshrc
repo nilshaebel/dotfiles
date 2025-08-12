@@ -223,7 +223,7 @@ source ~/Development/dotfiles/zsh/MY_DEVICE
 alias reload='source ~/Development/dotfiles/zsh/zshrc'
 
 # Capistrano
-alias deploy='bundle exec cap production deploy'
+alias cap_deploy='bundle exec cap production deploy'
 
 # Finder
 alias d='~/Desktop'
