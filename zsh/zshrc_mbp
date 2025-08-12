@@ -1,4 +1,18 @@
-export PATH="/usr/local/opt/postgresql@15/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/postgresql@15/lib"
-export CPPFLAGS="-I/usr/local/opt/postgresql@15/include"
-export PKG_CONFIG_PATH="/usr/local/opt/postgresql@15/lib/pkgconfig"
+#
+# zshrc_mbp
+#
+
+# Ruby; 2025-07-03
+
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/ruby/lib"
+export CPPFLAGS="-I/usr/local/opt/ruby/include"
+export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+
+
+# PostgreSQL; 2025-07-03
+
+export PATH="/usr/local/opt/postgresql@17/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/postgresql@17/lib"
+export CPPFLAGS="-I/usr/local/opt/postgresql@17/include"
+export PKG_CONFIG_PATH="/usr/local/opt/postgresql@17/lib/pkgconfig"
