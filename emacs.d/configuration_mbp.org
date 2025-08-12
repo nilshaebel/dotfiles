@@ -453,8 +453,8 @@ see https://www.emacswiki.org/emacs/AutoIndentMode#toc14
 Enable line numbers everywhere
 
 #+BEGIN_SRC emacs-lisp
-  (global-linum-mode 1) ;; OLD?!
-  ;;(global-display-line-numbers-mode 1) ;; doesn't work with the current theme
+  ;;(global-linum-mode 1) ;; OLD?!
+  (global-display-line-numbers-mode 1) ;; doesn't work with the current theme
 #+END_SRC
 
 ** New line mode
