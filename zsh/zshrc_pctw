@@ -169,7 +169,7 @@ eval "$(rbenv init - zsh)"
 alias reload='source ~/Development/dotfiles/zsh/zshrc'
 
 # Capistrano
-alias deploy='bundle exec cap production deploy'
+alias cap_deploy='bundle exec cap production deploy'
 
 # Files
 alias d='~/Desktop'
@@ -188,7 +188,7 @@ alias gc='git commit -m'
 alias mount-image='gnome-disk-image-mounter --writable'
 
 # Puma
-# @TODO: Update for Ubuntu once puma-dev has been set up
+# @TODO: Update for Linux once puma-dev has been set up
 #alias puma-log='nano ~/Library/Logs/puma-dev.log'
 #alias puma-purge-log='echo "" > ~/Library/Logs/puma-dev.log'
 #alias puma-restart='pkill -USR1 puma-dev'
