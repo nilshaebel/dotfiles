@@ -207,7 +207,7 @@ export EDITOR="/usr/local/bin/mate -w"
 # device-specific
 #
 
-source ~/Development/dotfiles/zsh/MY_DEVICE
+source ~/Development/dotfiles-private/zshrc_MYDEVICE
 
 
 
