@@ -1,4 +1,4 @@
-#+TITLE: Emacs configuration
+#+TITLE: Emacs configuration (Linux)
 #+AUTHOR: Nils Häbel
 #+EMAIL: nils.haebel@bitsandmachines.com
 #+OPTIONS: num:nil toc:nil
@@ -40,8 +40,6 @@ Always follow symlinks
 
 This should make sure that =use-package= has always been downloaded and the latest
 versions have been compiled and loaded.
-
-@TODO: Doesn't work, fix!
 
 #+BEGIN_SRC emacs-lisp
   (setq use-package-always-ensure t)
@@ -212,7 +210,7 @@ Again, taken from https://github.com/hrs/dotfiles.
 
 #+BEGIN_SRC emacs-lisp
   (setq hrs/default-font "IBM Plex Mono")
-  (setq hrs/default-font-size 14)
+  (setq hrs/default-font-size 13)
   (setq hrs/current-font-size hrs/default-font-size)
 
   (setq hrs/font-change-increment 1.1)
@@ -335,11 +333,9 @@ Define alt + tab as code completion shortcut
 
 ** Horizontal scrolling
 
-@NOTE: Disabled temporarily; NH 2025-11-23
-
 #+BEGIN_SRC emacs-lisp
-  ;; (global-set-key [wheel-right] 'scroll-left)
-  ;; (global-set-key [wheel-left] 'scroll-right)
+  (global-set-key [wheel-right] 'scroll-left)
+  (global-set-key [wheel-left] 'scroll-right)
 #+END_SRC
 
 ** Spaces and tabs
@@ -368,11 +364,6 @@ Set tab width to 2
     :config
     (setq css-indent-offset 'tab-width))
 
-  (use-package coffee-mode)
-  (add-hook 'coffee-mode-hook
-            (lambda ()
-              (yas-minor-mode 1)
-              (setq coffee-tab-width 'tab-width)))
 
   (setq tab-stop-list (number-sequence 2 200 2))
 #+END_SRC
@@ -457,8 +448,7 @@ see https://www.emacswiki.org/emacs/AutoIndentMode#toc14
 Enable line numbers everywhere
 
 #+BEGIN_SRC emacs-lisp
-  ;;(global-linum-mode 1) ;; OLD?!
-  (global-display-line-numbers-mode 1) ;; doesn't work with the current theme
+  (global-display-line-numbers-mode 1)
 #+END_SRC
 
 ** New line mode
@@ -481,34 +471,48 @@ Require new line at end of file
 
 * Keyboard shortcuts
 
+Better handling for Macintosh keyboards
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-  (global-set-key (kbd "C-x r") 'undo-redo)
-  (global-set-key (kbd "C-x a") 'mark-whole-buffer)
-  ;; Issue: org-mode overwrites using Shift-Tab for un-indenting current line - this repairs it!; NH 2025-11-23
-  (define-key org-mode-map (kbd "<backtab>") nil)  ; Remove Org's binding
-  (define-key org-mode-map (kbd "<backtab>") (key-binding (kbd "<backtab>")))  ; Restore global
+  ;;(setq mac-option-modifier nil
+  ;;      mac-command-modifier 'control
+  ;;      x-select-enable-clipboard t)
+
+  ;; Better handling for Macintosh keyboards
+  ;;(setq mac-option-modifier nil
+  ;;      mac-command-modifier 'control
+  ;;      mac-control-modifier 'meta
+  ;;      x-select-enable-clipboard t)
 #+END_SRC
 
-
-MacOS meta key switcher
+Default macOS-style keyboard shortcuts
+See https://gist.github.com/railwaycat/3498096
 
 #+BEGIN_SRC emacs-lisp
-  ;; (defun mac-switch-meta nil
-  ;;   "switch meta between Option and Command"
-  ;;   (interactive)
-  ;;   (if (eq mac-option-modifier nil)
-  ;;     (progn
-  ;;       (setq mac-option-modifier 'meta)
-  ;;       (setq mac-command-modifier 'hyper)
-  ;;     )
-  ;;     (progn
-  ;;       (setq mac-option-modifier nil)
-  ;;       (setq mac-command-modifier 'meta)
-  ;;     )
-  ;;   )
-  ;; )
+  (global-set-key [(hyper a)] 'mark-whole-buffer)
+  (global-set-key [(hyper v)] 'yank)
+  (global-set-key [(hyper c)] 'kill-ring-save)
+  (global-set-key [(hyper s)] 'save-buffer)
+  (global-set-key [(hyper l)] 'goto-line)
+  (global-set-key [(hyper q)] 'save-buffers-kill-emacs)
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  (global-set-key [(hyper f)] 'isearch-edit-string)
+#+END_SRC
+
+Not working (yet):
+
+#+BEGIN_SRC emacs-lisp
+  ;;(global-set-key [(hyper e)] (lambda () (interactive) ('execute)))
+  ;;(global-set-key [(hyper w)] 'kill-current-buffer)
+  ;;(global-set-key [(hyper o)] 'find-file)
+  ;;(global-set-key (kbd "H-o") 'find-file)
+  ;; still missing:
+  ;; ctrl + tab to switch documents
+  ;; cmd + w not working
+  ;; cmd + o for find file
+  ;; cmd + u for redo
+  ;; cmd + n for new buffer
+  ;; cmd + f for search (ctrl + s)
 #+END_SRC
 
 Do not have emacs capture right alt/option key and command keys
@@ -520,18 +524,11 @@ See https://gist.github.com/railwaycat/3498096#gistcomment-2615269
   ;;(setq ns-right-option-modifier nil)      ;; alias for ns-right-alternate-modifier
 #+END_SRC
 
-** Clipboard
-
-Better Clipboard handling on macOS
-
-#+BEGIN_SRC emacs-lisp
-  (xclip-mode 1)
-#+END_SRC
 
 ** Default directory
 
 #+BEGIN_SRC emacs-lisp
-  (defvar default_directory "~/Development/")
+  (defvar default_directory "/home/nilshaebel/Development/")
   (setq default-directory default_directory)
   (setq insert-default-directory default_directory)
   (setq command-line-default-directory default_directory)
@@ -728,11 +725,11 @@ Don't include footer in exported HTML document:
   (setq org-html-postamble nil)
 #+END_SRC
 
-Always use Safari as my webbrowser:
+Always use Mozilla Firefox as my webbrowser:
 
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "safari")
+        browse-url-generic-program "firefox")
 
   (setenv "BROWSER" "safari")
 #+END_SRC
