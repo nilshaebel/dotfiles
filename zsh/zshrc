@@ -199,8 +199,8 @@ export LANGUAGE="en_US:en"
 
 
 # Set default editor
-#export EDITOR="nano -w"
-export EDITOR="/usr/local/bin/mate -w"
+export EDITOR="nano -w"
+#export EDITOR="/usr/local/bin/mate -w"
 
 
 #
