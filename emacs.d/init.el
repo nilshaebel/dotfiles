@@ -36,13 +36,13 @@
  '(package-selected-packages
    '(auto-compile company counsel csv csv-mode delight diff-hl
                   dired-hide-dotfiles dired-sidebar diredful
-                  emoji-display flx htmlize literate-coffee-mode
-                  markdown-mode mmm-mode moody multi-term org
-                  org-bullets org-gtd orgtbl-show-header php-mode
-                  projectile-rails pug-mode rainbow-mode ruby-end smex
-                  stylus-mode use-package web-mode
-                  web-mode-edit-element which-key xclip yaml-mode
-                  zweilight-theme)))
+                  emoji-display flx haml-mode htmlize
+                  literate-coffee-mode markdown-mode mmm-mode moody
+                  multi-term org org-bullets org-gtd
+                  orgtbl-show-header php-mode projectile-rails
+                  pug-mode rainbow-mode ruby-end smex stylus-mode
+                  use-package web-mode web-mode-edit-element which-key
+                  xclip yaml-mode zweilight-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

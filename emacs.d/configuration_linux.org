@@ -915,7 +915,7 @@ see https://www.emacswiki.org/emacs/FullScreen#toc26
 
 #+BEGIN_SRC emacs-lisp
   (toggle-frame-maximized)
-  ;;(toggle-frame-fullscreen)
+  (toggle-frame-fullscreen)
 #+END_SRC
 
 
