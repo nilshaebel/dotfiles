@@ -256,6 +256,9 @@ alias el='echo "" > log/development.log'
 alias rc='bin/rails console'
 alias rs='bin/rails s'
 
+alias download='yt-dlp --config-location="~/.config/yt-dlp/config"'
+
+
 # set default directory
 cd ~/Development
 

@@ -1,0 +1,12 @@
+--js-runtimes node
+-f "bv*+ba"
+--embed-thumbnail
+--embed-metadata
+--write-subs
+--sub-lang "en, de"
+--sleep-interval 7
+--max-sleep-interval 16
+--recode-video mp4
+--ignore-errors
+--download-archive archive.txt
+
