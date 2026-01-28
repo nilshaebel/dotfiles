@@ -1,4 +1,5 @@
 --js-runtimes node
+--remote-components ejs:github
 -f "bv*+ba"
 --embed-thumbnail
 --embed-metadata
